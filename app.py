@@ -79,6 +79,7 @@ def get_logout():
 
 @app.route('/image/<uuid:imgid>/')
 def get_image(imgid=None):
+    imagedata = db.get_image_data(imdig)
     return flask.render_template(
         'image.html',
         imagetitle='Norppa?!?!?',
@@ -89,12 +90,12 @@ def get_image(imgid=None):
 
 @app.route('/action/login/', methods=['POST'])
 def post_login():
-    username = db.check_credentials(
+    loginsuccess = db.check_credentials(
         flask.request.form.get('username'),
         flask.request.form.get('password')
     )
-    if (username):
-        flask.session['username'] = username
+    if (loginsuccess):
+        flask.session['username'] = flask.request.form.get('username')
         return flask.redirect('/browse/')
     else:
         flask.flash('Login failed, please check your credentials.')
@@ -117,6 +118,11 @@ def post_register():
 @app.route('/action/comment/<uuid:imageid>/', methods=['POST'])
 def post_comment(imageid=None):
     return flask.redirect('/image/{}/'.format(imageid))
+
+
+@app.route('/action/upload/', methods=['POST'])
+def post_upload():
+    return flask.redirect('/image/{}/'.format(uuid.uuid4()))
 
 
 @app.route('/api/browse/')

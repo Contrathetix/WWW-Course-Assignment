@@ -1,5 +1,9 @@
+# python imports
 import os
 import sqlite3
+
+# passlib from PyPi
+from passlib.hash import pbkdf2_sha256
 
 
 class database(object):
@@ -30,9 +34,10 @@ class database(object):
                 return 'Passwords do not match!'
             if (len(username) < 1 or len(password[0]) < 1):
                 return 'Please supply long enough password and username.'
+            pwhash = pbkdf2_sha256.hash(password[0])
             self.cursor.execute(
-                'INSERT INTO users(username,pwd) VALUES (?,?)',
-                (username, password[0])
+                'INSERT INTO users(username,pwhash) VALUES (?,?)',
+                (username, pwhash)
             )
             return 'Account creation successful!'
         except Exception as exc:
@@ -40,12 +45,24 @@ class database(object):
 
     def check_credentials(self, username, password):
         try:
+            if (username == 'guest'):
+                return True
             self.cursor.execute(
-                'SELECT COUNT (*) AS matches FROM users WHERE username=? AND pwd=?',
-                (username, password)
+                'SELECT pwhash FROM users WHERE username=?',
+                (username,)
             )
-            if (self.cursor.fetchone()['matches'] > 0):
-                return username
+            pwhash = self.cursor.fetchone()['pwhash']
+            if (pwhash):
+                return pbkdf2_sha256.verify(password, pwhash)
+        except Exception as exc:
+            print(exc)
+        return False
+
+    def get_image_data(self, imageid=None):
+        try:
+            self.cursor.execute(
+                'SELECT '
+            )
         except Exception as exc:
             print(exc)
         return None
