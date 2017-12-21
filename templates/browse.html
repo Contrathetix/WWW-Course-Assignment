@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block css %}
+    <link href="/static/style/browse.css" rel="stylesheet">
+{% endblock %}
+{% block script %}{% endblock %}
+{% block main %}
+    {% for image in imagelist %}
+    <a href="/image/{{image.uuid}}/">
+        <img src="/static/uploads/image.jpg">
+        <p>{{image.title}}</p>
+    </a>
+    {% endfor %}
+{% endblock %}

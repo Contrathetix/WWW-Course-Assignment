@@ -1,0 +1,150 @@
+* {
+    font-size: 1.0em;
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: rgb(0,0,0);
+    transition: all 0.2s ease;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background: linear-gradient(0deg, rgb(60,60,60), rgb(100,100,100), rgb(150,150,150));
+    background-position: center;
+    background-size: cover;
+}
+
+header, footer {
+    padding: 20px 40px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+header > h1, header > a {
+    color: rgb(255,255,255);
+}
+
+header > h1 {
+    font-size: 1.2rem;
+    font-family: 'Merienda', cursive;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+header > a {
+    padding: 10px;
+    text-decoration: none;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+header > a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+footer {
+    background-color: rgb(0,0,0);
+    margin-top: auto;
+}
+
+footer > p {
+    color: rgb(230,230,230);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+main {
+    max-width: 90%;
+    min-width: 40%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 0;
+    padding: 10px;
+    background: none;
+    background-color: rgba(255,255,255,0.1);
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: rgb(255,255,255);
+    border-radius: 0;
+}
+
+input:hover, input:focus {
+    background-color: rgba(255,255,255,0.2);
+}
+
+input:focus {
+    border-color: rgb(255,255,255);
+}
+
+input[type='submit']:hover, input[type='submit']:focus {
+    background-color: rgba(255,255,255,0.8);
+    color: rgb(0,0,0);
+    cursor: pointer;
+}
+
+main > h1 {
+    padding: 10px;
+    background-color: rgb(255,255,255);
+    color: rgb(0,0,0);
+    margin-bottom: 10px;
+}
+
+main > form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+main > form input {
+    margin-bottom: 5px;
+}
+
+messages {
+    background-color: rgba(255,255,255,0.8);
+}
+
+messages > p {
+    padding: 10px;
+    color: rgb(0,0,0);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+messages > p:first-child {
+    margin-top: 5px;
+}
+
+messages > p:last-child {
+    margin-bottom: 5px;
+}
+
+p.message {
+    padding: 20px;
+    background-color: rgba(255,255,255,0.6);
+    border-left: 4px solid rgb(255,255,255);
+    color: rgb(0,0,0);
+}
+
+p.message.error {
+    border-color: rgb(150,0,0);
+    color: rgb(150,0,0);
+}

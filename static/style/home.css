@@ -1,0 +1,24 @@
+main > h1 {
+    font-size: 2rem;
+    font-family: 'Fontdiner Swanky', cursive;
+    background: none;
+    margin: 40px auto 20px auto;
+}
+
+main > h1, main > p, main > a {
+    text-decoration: none;
+    color: rgb(255,255,255);
+    text-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+main > a {
+    margin: 50px auto;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid rgb(255,255,255);
+}
+
+main > a:hover {
+    background-color: rgb(255,255,255);
+    color: rgb(0,0,0);
+}

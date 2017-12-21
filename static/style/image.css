@@ -1,0 +1,63 @@
+main > img {
+    width: 100%,
+}
+
+span.comment {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2px;
+    background-color: rgba(0,0,0,0.7);
+}
+
+span.comment > span {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0.8);
+    padding: 15px;
+    margin-right: 5px;
+}
+
+span.comment > span > p:nth-child(1) {
+    font-weight: bold;
+    color: rgb(255,255,255);
+}
+
+span.comment > span > p:nth-child(2) {
+    font-style: italic;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    color: rgb(200,200,200);
+}
+
+span.comment > p {
+    color: rgb(255,255,255);
+    padding: 15px;
+    flex-grow: 1;
+}
+
+table, tr, td {
+    border-collapse: collapse;
+}
+
+table {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    color: rgb(255,255,255);
+}
+
+tr {
+    background-color: rgba(0,0,0,0.8);
+}
+
+tr:nth-of-type(2n+1) {
+    background-color: rgba(0,0,0,0.7);
+}
+
+main > form {
+    background-color: rgba(0,0,0,0.7);
+    margin: 0;
+}

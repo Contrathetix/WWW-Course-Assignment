@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block css %}{% endblock %}
+{% block script %}{% endblock %}
+{% block main %}
+    <h1>Upload</h1>
+    {% if username %}
+    <form action="/action/upload/" method="POST">
+        <input type="text" name="title" placeholder="title">
+        <input type="file">
+        <input type="submit" value="upload">
+    </form>
+    {% else %}
+    <p class="message error">Permission denied</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Omgur</title>
+    <link href="/static/image/favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Merienda|Open+Sans|Fontdiner+Swanky" rel="stylesheet">
+    <link href="/static/style/common.css" rel="stylesheet">
+    {% block css %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/static/script/common.js"></script>
+    {% block script %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Omgur</h1>
+        <a href="/browse/">browse</a>
+        <a href="/upload/">upload</a>
+        <a href="/statistics/">statistics</a>
+        {% if username %}
+        <a href="/logout/">{{username}} (logout)</a>
+        {% else %}
+        <a href="/register/">register</a>
+        <a href="/login/">login</a>
+        {% endif %}
+    </header>
+    <messages>
+            {% for msg in get_flashed_messages() %}
+            <p>{{msg}}</p>
+            {% endfor %}
+    </messages>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <footer>
+        <p>WWW-Sovellukset | Harjoitustyö</p>
+    </footer>
+</body>
+</html>
