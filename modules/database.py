@@ -1,5 +1,6 @@
 # python imports
 import os
+import uuid
 import sqlite3
 
 # passlib from PyPi
@@ -13,8 +14,13 @@ class database(object):
 
     def __init__(self):
         super().__init__()
+        # remove potential old database file at launch
         if os.path.isfile(self.dbpath):
             os.unlink(self.dbpath)
+        # cleanup uploaded files storage, as well
+        uploadpath = os.path.join(os.path.abspath('.'), 'static', 'uploads')
+        for fp in os.scandir(uploadpath):
+            os.unlink(fp.path)
         self.db = sqlite3.connect(self.dbpath)
         self.db.row_factory = sqlite3.Row
         self.cursor = self.db.cursor()
@@ -36,12 +42,31 @@ class database(object):
                 return 'Please supply long enough password and username.'
             pwhash = pbkdf2_sha256.hash(password[0])
             self.cursor.execute(
-                'INSERT INTO users(username,pwhash) VALUES (?,?)',
+                'INSERT INTO users(username,pwhash,usergroup) ' +
+                'VALUES ( (?), (?), (SELECT id FROM usergroups WHERE groupname="registered") )',
                 (username, pwhash)
             )
             return 'Account creation successful!'
         except Exception as exc:
-            return 'Account creation failed.'
+            print(exc)
+        return 'Account creation failed.'
+
+    def upload_image(self, username, imagetitle, imagefile):
+        try:
+            imageid = str(uuid.uuid4())
+            outputpath = os.path.join(
+                os.path.abspath('.'), 'static', 'uploads', imageid + '.jpg'
+            )
+            imagefile.save(outputpath)
+            self.cursor.execute(
+                'INSERT INTO images(uuid,title,uploader) ' +
+                'VALUES ( (?), (?), (SELECT id FROM users WHERE username=?))',
+                (imageid, imagetitle, username)
+            )
+            return imageid
+        except Exception as exc:
+            print(exc)
+        return None
 
     def check_credentials(self, username, password):
         try:
@@ -58,11 +83,34 @@ class database(object):
             print(exc)
         return False
 
+    def get_image_data_complete(self):
+        try:
+            self.cursor.execute(
+                'SELECT ' +
+                'images.uuid AS uuid, ' +
+                'images.title AS title, ' +
+                'users.username AS uploader ' +
+                'FROM images INNER JOIN users ' +
+                'ON users.id=images.uploader'
+            )
+            return self.cursor.fetchall()
+        except Exception as exc:
+            print(exc)
+        return []
+
     def get_image_data(self, imageid=None):
         try:
             self.cursor.execute(
-                'SELECT '
+                'SELECT ' +
+                'images.uuid AS uuid, ' +
+                'images.title AS title, ' +
+                'users.username AS uploader ' +
+                'FROM images INNER JOIN users ' +
+                'ON users.id=images.uploader ' +
+                'WHERE images.uuid=?',
+                (str(imageid),)
             )
+            return self.cursor.fetchone()
         except Exception as exc:
             print(exc)
         return None

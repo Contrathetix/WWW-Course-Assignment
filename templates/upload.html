@@ -4,9 +4,9 @@
 {% block main %}
     <h1>Upload</h1>
     {% if username %}
-    <form action="/action/upload/" method="POST">
+    <form action="/action/upload/" method="POST" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="title">
-        <input type="file">
+        <input type="file" name="file" accept="image/jpeg">
         <input type="submit" value="upload">
     </form>
     {% else %}

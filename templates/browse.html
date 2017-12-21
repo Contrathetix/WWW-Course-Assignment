@@ -6,7 +6,7 @@
 {% block main %}
     {% for image in imagelist %}
     <a href="/image/{{image.uuid}}/">
-        <img src="/static/uploads/image.jpg">
+        <img src="/static/uploads/{{image.uuid}}.jpg">
         <p>{{image.title}}</p>
     </a>
     {% endfor %}

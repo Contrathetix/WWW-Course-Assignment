@@ -1,5 +1,7 @@
 *.db
+*.db-journal
+*.odt#
 .vscode
 .git
 __pycache__
-*.odt#
+uploads

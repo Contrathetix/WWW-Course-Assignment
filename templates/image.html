@@ -4,20 +4,16 @@
 {% endblock %}
 {% block script %}{% endblock %}
 {% block main %}
-    <h1>{{imagetitle}}</h1>
-    <img src="/static/uploads/image.jpg">
+    <h1>{{imagedata.title}}</h1>
+    <img src="/static/uploads/{{imagedata.uuid}}.jpg">
     <table>
         <tr>
             <td>Author</td>
-            <td>Kalle</td>
-        </tr>
-        <tr>
-            <td>Timestamp</td>
-            <td>2016-12-32 24:35:21</td>
+            <td>{{imagedata.uploader}}</td>
         </tr>
         <tr>
             <td>UUID</td>
-            <td>{{imageid}}</td>
+            <td>{{imagedata.uuid}}</td>
         </tr>
     </table>
     <h1>Comments</h1>

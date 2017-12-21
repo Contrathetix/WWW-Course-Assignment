@@ -8,8 +8,8 @@ main > a {
     display: block;
     position: relative;
     margin: 4px;
-    width: 200px;
-    height: 100px;
+    max-width: 400px;
+    max-height: 200px;
 }
 
 main > a:hover {

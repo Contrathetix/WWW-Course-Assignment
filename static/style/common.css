@@ -28,32 +28,70 @@ header, footer {
     padding: 20px 40px;
 }
 
-header {
+header, header > span {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-header > h1, header > a {
+header > span:nth-of-type(1) {
+    margin-right: auto;
+}
+
+header > span#navigation {
+    visibility: visible;
+}
+
+header > span > a#burger {
+    visibility: collapse;
+}
+
+header > span > h1, header > span > a {
     color: rgb(255,255,255);
 }
 
-header > h1 {
+header > span > h1 {
     font-size: 1.2rem;
     font-family: 'Merienda', cursive;
     font-weight: bold;
     margin-right: auto;
 }
 
-header > a {
+header > span > a {
     padding: 10px;
     text-decoration: none;
     padding: 15px;
     font-size: 0.9rem;
 }
 
-header > a:hover {
+header > span > a:hover {
     background-color: rgba(255,255,255,0.2);
+}
+
+@media screen and (max-width: 800px) {
+    header {
+        flex-direction: column;
+    }
+    header > span:nth-of-type(1) {
+        width: 100%;
+    }
+    header > span > a#burger {
+        visibility: visible;
+    }
+    header > span > a#burger:hover {
+        cursor: pointer;
+    }
+    header > span#navigation {
+        flex-direction: column;
+        visibility: collapse;
+        width: 100%;
+    }
+    header > span#navigation > a {
+        border-radius: 0;
+        padding: 10px 15px;
+        width: 100%;
+        border-bottom: 1px solid rgb(230,230,230);
+    }
 }
 
 footer {

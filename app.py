@@ -5,19 +5,24 @@ import uuid
 # project imports
 import modules.database
 
-# init application and setup for development
+# init application
 app = flask.Flask(__name__)
-app.secret_key = 'EinsteinFlyingPigsMashup'
+
+# not secure, but will do for now
+app.secret_key = str(uuid.uuid4())
+
+# instruct jinja to clean-up blocks and to auto-reload altered templates
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-# init database - only done once,single instance used later everywhere
+# init database - only done once per app
 db = modules.database.database()
 
 
 @app.route('/')
 def get_home():
+    # render homepage / landing page
     return flask.render_template(
         'home.html',
         username=flask.session.get('username')
@@ -26,25 +31,21 @@ def get_home():
 
 @app.route('/browse/')
 def get_browse():
-    imglist = [{
-        'uuid': uuid.uuid4(),
-        'author': 'Kalle',
-        'time': '2017-10-26',
-        'title': 'Jotakin muuta!'
-    } for i in range(0, 20)]
+    # print out a list of all images ever saved in the system,
+    # obviously not practical in the long term but will do for now
     return flask.render_template(
         'browse.html',
-        imagelist=imglist,
+        imagelist=db.get_image_data_complete(),
         username=flask.session.get('username')
     )
 
 
-@app.route('/statistics/', methods=['GET'])
-def get_statistics():
-    return flask.render_template(
-        'statistics.html',
-        username=flask.session.get('username')
-    )
+# @app.route('/statistics/', methods=['GET'])
+# def get_statistics():
+#    return flask.render_template(
+#        'statistics.html',
+#        username=flask.session.get('username')
+#    )
 
 
 @app.route('/upload/', methods=['GET'])
@@ -79,11 +80,10 @@ def get_logout():
 
 @app.route('/image/<uuid:imgid>/')
 def get_image(imgid=None):
-    imagedata = db.get_image_data(imdig)
+    imagedata = db.get_image_data(imgid)
     return flask.render_template(
         'image.html',
-        imagetitle='Norppa?!?!?',
-        imageid=imgid,
+        imagedata=imagedata,
         username=flask.session.get('username')
     )
 
@@ -122,7 +122,17 @@ def post_comment(imageid=None):
 
 @app.route('/action/upload/', methods=['POST'])
 def post_upload():
-    return flask.redirect('/image/{}/'.format(uuid.uuid4()))
+    imageid = db.upload_image(
+        username=flask.session.get('username'),
+        imagetitle=flask.request.form['title'],
+        imagefile=flask.request.files['file']
+    )
+    if (imageid):
+        flask.flash('Upload success!')
+        return flask.redirect('/image/{}/'.format(imageid))
+    else:
+        flask.flash('Upload failed, an error occurred...')
+        return flask.redirect('/upload/')
 
 
 @app.route('/api/browse/')

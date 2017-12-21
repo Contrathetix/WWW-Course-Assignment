@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Omgur</title>
     <link href="/static/image/favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda|Open+Sans|Fontdiner+Swanky" rel="stylesheet">
     <link href="/static/style/common.css" rel="stylesheet">
     {% block css %}{% endblock %}
@@ -15,16 +16,21 @@
 </head>
 <body>
     <header>
-        <h1>Omgur</h1>
-        <a href="/browse/">browse</a>
-        <a href="/upload/">upload</a>
-        <a href="/statistics/">statistics</a>
-        {% if username %}
-        <a href="/logout/">{{username}} (logout)</a>
-        {% else %}
-        <a href="/register/">register</a>
-        <a href="/login/">login</a>
-        {% endif %}
+        <span>
+            <h1>Omgur</h1>
+            <a id="burger" class="material-icons">menu</a>
+        </span>
+        <span id="navigation">
+            <a href="/browse/">browse</a>
+            <a href="/upload/">upload</a>
+            <!--<a href="/statistics/">statistics</a>-->
+            {% if username %}
+            <a href="/logout/">{{username}} (logout)</a>
+            {% else %}
+            <a href="/register/">register</a>
+            <a href="/login/">login</a>
+            {% endif %}
+        </span>
     </header>
     <messages>
             {% for msg in get_flashed_messages() %}
