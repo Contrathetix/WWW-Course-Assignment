@@ -5,7 +5,7 @@ function createComment(username, content) {
     jQuery('<span/>', {class: 'comment'}).append(
         jQuery('<p/>', {text: username}),
         jQuery('<p/>', {text: content})
-    ).insertBefore('form#commentsubmission')
+    ).insertAfter('main > h1:nth-of-type(2)')
 }
 
 $(document).ready(function() {

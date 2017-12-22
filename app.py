@@ -151,14 +151,6 @@ def post_upload():
         return flask.redirect('/upload/')
 
 
-@app.route('/api/browse/')
-def api_browse():
-    # return flask.jsonify([
-    #    {'filename': 'random.jpg', 'title': 'Random', 'uuid': uuid.uuid4()}
-    # ])
-    return 404
-
-
 if __name__ == '__main__':
     try:
         app.run(host='127.0.0.1', port=8080, debug=False)

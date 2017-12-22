@@ -1,0 +1,40 @@
+@media print {
+
+    * {
+        background: none;
+        box-shadow: none;
+        color: rgb(0,0,0);
+    }
+
+    header span#navigation, header a#burger {
+        display: none;
+    }
+
+    header, footer, body {
+        background: none;
+        box-shadow: none;
+        text-shadow: none;
+    }
+
+    header, header span {
+        border-bottom: 1px solid rgb(150,150,150);
+    }
+
+    header > span:nth-of-type(1) > p {
+        width: 100%;
+        text-align: center;
+    }
+
+    footer {
+        border-top: 1px solid rgb(150,150,150);
+    }
+
+    main > h1, input[type='submit'] {
+        background-color: rgb(200,200,200);
+    }
+
+   input[type='text'], input[type='password'], input[type='file'] {
+        border-bottom: 1px solid rgb(150,150,150);
+    }
+
+}
