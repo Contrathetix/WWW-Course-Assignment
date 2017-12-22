@@ -2,7 +2,9 @@
 {% block css %}
     <link href="/static/style/image.css" rel="stylesheet">
 {% endblock %}
-{% block script %}{% endblock %}
+{% block script %}
+    <script src="/static/script/comment.js"></script>
+{% endblock %}
 {% block main %}
     <h1>{{imagedata.title}}</h1>
     <img src="/static/uploads/{{imagedata.uuid}}.jpg">
@@ -31,7 +33,7 @@
         </span>
         <p>Säälittävä kuva.</p>
     </span>
-    <form action="/action/comment/{{imageid}}/" method="POST">
+    <form id="commentsubmission" action="/action/comment/{{imagedata.uuid}}/" method="POST">
         <input type="text" name="comment" placeholder="your comment">
         <input type="submit" value="send">
     </form>

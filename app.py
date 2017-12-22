@@ -80,7 +80,7 @@ def get_logout():
 
 @app.route('/image/<uuid:imgid>/')
 def get_image(imgid=None):
-    imagedata = db.get_image_data(imgid)
+    imagedata = db.get_image_data(str(imgid))
     return flask.render_template(
         'image.html',
         imagedata=imagedata,
@@ -117,7 +117,23 @@ def post_register():
 
 @app.route('/action/comment/<uuid:imageid>/', methods=['POST'])
 def post_comment(imageid=None):
-    return flask.redirect('/image/{}/'.format(imageid))
+    try:
+        inputdata = flask.request.get_json(force=True)
+        # print(inputdata)
+        output = db.upload_comment(
+            imageid=str(imageid),
+            username=flask.session.get('username'),
+            comment=inputdata['comment']
+        )
+        # print(output)
+        return flask.jsonify(output)
+    except Exception as exc:
+        return 500
+
+
+@app.route('/action/get-comments/<uuid:imageid>/', methods=['GET'])
+def get_comments_for_image(imageid=None):
+    return flask.jsonify(db.get_comments(imageid=str(imageid)))
 
 
 @app.route('/action/upload/', methods=['POST'])

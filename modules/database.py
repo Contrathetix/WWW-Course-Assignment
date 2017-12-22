@@ -68,6 +68,22 @@ class database(object):
             print(exc)
         return None
 
+    def upload_comment(self, imageid, username, comment):
+        # print('{} commented on {}: {}'.format(username, imageid, comment))
+        try:
+            self.cursor.execute(
+                'INSERT INTO comments(comment,uploader,imageid) ' +
+                'VALUES ( ' +
+                '(?), ' +
+                '(SELECT id FROM users WHERE username=?), ' +
+                '(SELECT uuid FROM images WHERE uuid=?) )',
+                (comment, username, imageid)
+            )
+            return True
+        except Exception as exc:
+            print(exc)
+        return False
+
     def check_credentials(self, username, password):
         try:
             if (username == 'guest'):
@@ -98,6 +114,25 @@ class database(object):
             print(exc)
         return []
 
+    def get_comments(self, imageid=None):
+        try:
+            self.cursor.execute(
+                'SELECT ' +
+                'comments.comment AS comment, ' +
+                'users.username AS username ' +
+                'FROM comments INNER JOIN users ' +
+                'ON comments.uploader=users.id ' +
+                'WHERE comments.imageid=?',
+                (imageid,)
+            )
+            return [{
+                'comment': dbrow['comment'],
+                'username': dbrow['username']
+            } for dbrow in self.cursor.fetchall()]
+        except Exception as exc:
+            print(exc)
+        return None
+
     def get_image_data(self, imageid=None):
         try:
             self.cursor.execute(
@@ -108,7 +143,7 @@ class database(object):
                 'FROM images INNER JOIN users ' +
                 'ON users.id=images.uploader ' +
                 'WHERE images.uuid=?',
-                (str(imageid),)
+                (imageid,)
             )
             return self.cursor.fetchone()
         except Exception as exc:

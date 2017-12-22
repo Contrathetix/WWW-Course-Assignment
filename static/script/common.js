@@ -1,3 +1,5 @@
+'use strict'
+
 $(document).ready(function() {
     setTimeout(function() {
         $('messages').fadeOut(1000, function() {

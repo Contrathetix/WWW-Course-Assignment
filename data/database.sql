@@ -21,6 +21,16 @@ CREATE TABLE images (
     FOREIGN KEY (uploader) REFERENCES users(id) ON DELETE CASCADE
 ) WITHOUT ROWID;
 
+CREATE TABLE comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    comment TEXT NOT NULL,
+    uploader INTEGER NOT NULL,
+    imageid TEXT NOT NULL,
+
+    FOREIGN KEY (uploader) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (imageid) REFERENCES images(uuid) ON DELETE CASCADE
+);
+
 INSERT INTO usergroups(groupname,isadmin) VALUES ('admins',1);
 INSERT INTO usergroups(groupname,isadmin) VALUES ('registered',0);
 INSERT INTO usergroups(groupname,isadmin) VALUES ('guests',0);
