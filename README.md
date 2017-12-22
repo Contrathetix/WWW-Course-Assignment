@@ -14,7 +14,7 @@ The following are required for running the application:
 
 ## Running the Thing
 
-There exists no virtualenv for Python, unfortunately, as I installed Flask for my user account. The following should be sufficient for running the application (replace `python` with ``python3` on linux (at least on Ubuntu) because python by default points at python2). For installing Flask and Passlib for the current user account, not system-wide:
+There exists no virtualenv for Python, unfortunately, as I installed Flask for my user account. The following should be sufficient for running the application (replace `python` with `python3` on linux (at least on Ubuntu) because python by default points at python2). For installing Flask and Passlib for the current user account, not system-wide:
 ```
 python -m pip install --user flask passlib
 ```

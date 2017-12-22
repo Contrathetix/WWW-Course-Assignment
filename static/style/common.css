@@ -19,7 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    background: linear-gradient(0deg, rgb(60,60,60), rgb(100,100,100), rgb(150,150,150));
+    background: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('/static/image/background.jpg');
     background-position: center;
     background-size: cover;
 }
